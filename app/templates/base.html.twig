@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/materialize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+
+{% block navbar %}
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+
+    <nav class="nav-extended red">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo"><img src="{{ asset('/images/logo.png') }}" width="50px"></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            </ul>
+
+            <ul class="right">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li>
+                        <a class='dropdown-trigger' href='#' data-target='dropdown1'>
+                            Connecté en tant que {{ app.user.nom }} <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+
+                    <li id='dropdown1' class='dropdown-content red darken-4 white-text'><a href="{{ path('app_logout')}}">Se déconnecter</a></li>
+
+                {% else %}
+                    <li><a id="Login">Se connecter</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div id="nav-content">
+            <ul class="tabs tabs-transparent">
+                <li class="tab"><a id="Accueil" class="collection-item active" href="#">Accueil</a></li>
+                <li class="tab"><a id="Reservations" class="collection-item" href="#">Mes réservations</a></li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="tab"><a id="Informations" class="collection-item" href="#">Mes informations</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="tab"><a id="Gerer" class="collection-item" href="#">Gérer les réservations</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+<body>
+<div id="body-content">
+    {% block body %}
+    {% endblock %}
+</div>
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('js/materialize.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}
+</body>
+</html>

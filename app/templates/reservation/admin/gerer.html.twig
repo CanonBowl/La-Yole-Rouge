@@ -1,0 +1,64 @@
+{% block body %}
+    <div class="row">
+        <div class="col l6 center">
+            <div class="card" style="height: 30vh">
+                <div class="row">
+                    {{ form_start(form, {'attr': {'id': 'formGererRes'}}) }}
+                    <div class="col l6">
+                        <div class="row">
+                            Demandeur : <a id="{{ reservations.user.id }}">{{ reservations.user.Nom }}</a>
+                        </div>
+                        <div class="row">
+                            Pour le {{ reservations.DateHeure|format_datetime() }}
+                        </div>
+                        <div class="row">
+                            {{ form_row(form.EtatReservation, { 'attr': {'class': 'browser-default'} }) }}
+                        </div>
+                    </div>
+                    <div class="col l6">
+                        {{ form_row(form.Commentaire) }}
+                        {{ form_row(form.Envoyer, {'attr': {'class': 'sendGererRes'}}) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="row" id="spaceInfoUser">
+
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $(document).ready(function() {
+
+            $('#{{ reservations.user.id }}').click(function() {
+                $("#spaceInfoUser").toggle('slide').load("Admin/Informations/{{ reservations.user.id }}", function () {
+                    $('#spaceInfoUser').toggle('slide');
+                });
+            });
+
+            $('.sendGererRes').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/Admin/Reservations/Gerer/{{ reservations.id }}",
+                    data: $('#formGererRes').serialize(),
+                    method: "POST",
+                    success: function (data) {
+                        const jData = JSON.parse(data);
+                        if (jData['Success']) {
+                            //$('.modal').modal('open');
+                            M.toast({html: "L'action a bien été prise en compte."})
+                        }
+                    },
+                    error: function() {
+                        M.toast({html: "Ceci est un fail."})
+                    }
+                })
+            });
+
+        });
+    </script>
+{% endblock %}

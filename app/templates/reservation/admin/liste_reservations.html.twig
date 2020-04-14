@@ -1,0 +1,24 @@
+{% for reservation in reservations %}
+    <div style="padding: 15px; height: 35vh; display: inline-block;" class="z-depth-2 hoverable carte" onclick="gerer_res({{ reservation.id }})">
+        {% if reservation.etatReservation.id == 1 %}
+            <div class="left">
+                <i class="material-icons left">control_point</i>
+            </div>
+        {% endif %}
+        <b>Réservation n°{{ reservation.id }}</b><br/>
+        Pour le {{ reservation.DateHeure|format_datetime() }}<br/>
+        <i class="material-icons">help_outline</i> {{ reservation.EtatReservation.description }}<br/>
+    </div>
+{% else %}
+    Pas de réservation
+{% endfor %}
+<script>
+
+    $(document).ready(function() {
+
+        $('.carte').click(function (e) {
+            $('.carte').removeClass('selected');
+            $(this).addClass('selected');
+        });
+    });
+</script>

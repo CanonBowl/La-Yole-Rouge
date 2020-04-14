@@ -1,0 +1,92 @@
+.actif {
+    background-color: rgba(50, 50, 50, 0.8);
+    color: red;
+}
+
+.carte-descr {
+    background-color: rgba(255,255,255,0.5);
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 5%;
+    padding: 2%;
+}
+
+.selected {
+    background-color: rgb(230, 230, 230);
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.carte {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.card {
+    padding: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 1px solid gray !important;
+}
+
+nav {
+    height: 20vh;
+}
+
+@media screen and (max-width: 992px) {
+    .demi-height {
+        height: 40vh;
+    }
+}
+
+@media screen and (min-width: 993px) {
+    .full-row {
+        height: 80vh;
+    }
+}
+
+.row {
+    margin-bottom: 0 !important;
+}
+
+.outer > div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.inner {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}

@@ -1,0 +1,54 @@
+{% block body %}
+    <div class="row full-row center-align">
+
+        <div class="carousel center col l6 demi-height full-row valign-wrapper center">
+            {%  for reservation in reservations %}
+                <div class="card z-depth-2 carousel-item">
+                    <b>Réservation n°{{ reservation.id }}</b><br>
+                    Faite le {{ reservation.DateHeure|format_datetime() }}<br>
+                    Etat réservation : {{ reservation.EtatReservation.description }}
+                </div>
+            {% else %}
+                Pas de réservation
+            {% endfor %}
+        </div>
+
+        <div class="col l6 s12 demi-height full-row valign-wrapper">
+            <div class="row z-depth-2 center-align">
+            <a id="AjouterReservation" style="color: white; width: 40vw" class="red btn waves-effect waves-light z-depth-2"><i class="material-icons left">arrow_drop_down_circle</i>Faire demande de réservation</a>
+            <a id="RetirerReservation" style="color: white; width: 40vw" class="red btn waves-effect waves-light z-depth-2"><i class="material-icons left">cancel</i>Retirer la réservation</a>
+
+            <div style="padding: 15px; width: 40vw" class="red darken-4" id="Ajout">
+
+            </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $(document).ready(function() {
+
+            $('#RetirerReservation').toggle();
+            $("#Ajout").slideUp();
+
+            $('.carousel').carousel({
+                indicators: true,
+            });
+
+            $('#AjouterReservation').click(function() {
+                $('#AjouterReservation').toggle();
+                $('#RetirerReservation').toggle();
+                $("#Ajout").slideUp().load("AjouterReservation", function () {
+                    $('#Ajout').slideDown();
+                });
+            });
+
+            $('#RetirerReservation').click(function() {
+                $('#AjouterReservation').toggle();
+                $('#RetirerReservation').toggle();
+                $("#Ajout").slideUp();
+            });
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% block body %}
+    <div class="full-row">
+
+        <div class="row">
+
+            <div class="col m11 valign-wrapper" id="espaceReservations" style="overflow-x: scroll; overflow-y: hidden; white-space: nowrap; height: 40vh;">
+                {% for reservation in reservations %}
+                    <div style="padding: 15px; height: 35vh; display: inline-block;" class="z-depth-2 hoverable carte" onclick="gerer_res({{ reservation.id }})">
+                        {% if reservation.etatReservation.id == 1 %}
+                            <div class="left">
+                            <i class="material-icons left">control_point</i>
+                            </div>
+                        {% endif %}
+                        <b>Réservation n°{{ reservation.id }}</b><br/>
+                        Pour le {{ reservation.DateHeure|format_datetime() }}<br/>
+                        <i class="material-icons">help_outline</i> {{ reservation.EtatReservation.description }}<br/>
+                    </div>
+                {% else %}
+                    Pas de réservation
+                {% endfor %}
+            </div>
+
+            <div class="col s1 right" style="padding: 0">
+                <div id="ResNew" style="background: yellow">
+                    <i class="material-icons medium">fiber_new</i>
+                </div>
+                <div id="ResVues" style="background: red">
+                    <i class="material-icons medium">remove_red_eye</i>
+                </div>
+                <div id="ResValide" style="background: gray">
+                    <i class="material-icons medium">check</i>
+                </div>
+                <div id="ResAnnule" style="background: green">
+                    <i class="material-icons medium">cancel</i>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="height: 40vh" class="SpaceGererRes">
+
+        </div>
+
+    </div>
+    <script>
+
+        function gerer_res(id) {
+            $(".SpaceGererRes").toggle("slide", function() {
+                $(this).load("Admin/Reservations/Gerer/" + id, function () {
+                    $('.SpaceGererRes').toggle("slide");
+                });
+            })
+        }
+
+        $(document).ready(function() {
+
+            $('.carte').click(function(e) {
+                $('.carte').removeClass('selected');
+                $(this).addClass('selected');
+            });
+
+            $('#ResNew').click(function() {
+                $('#espaceReservations').toggle('slide', function () {
+                    $(this).load('Admin/Reservations/1', function() {
+                        $(this).toggle('slide');
+                    });
+                })
+            });
+
+            $('#ResAnnule').click(function() {
+                $('#espaceReservations').toggle('slide', function () {
+                    $(this).load('Admin/Reservations/4', function() {
+                        $(this).toggle('slide');
+                    });
+                })
+            });
+            $('#ResValide').click(function() {
+                $('#espaceReservations').toggle('slide', function () {
+                    $(this).load('Admin/Reservations/3', function() {
+                        $(this).toggle('slide');
+                    });
+                })
+            });
+
+
+            $('#ResVues').click(function() {
+                $('#espaceReservations').toggle('slide', function () {
+                    $(this).load('Admin/Reservations/2', function() {
+                        $(this).toggle('slide');
+                    });
+                })
+            });
+
+            $('.card').hover(function(e) {
+                $(this).css('margin-left', '+=10');
+                $(this).css('margin-right', '+=10');
+            }, function () {
+                $(this).css('margin-left', '-=10');
+                $(this).css('margin-right', '-=10');
+            });
+        });
+    </script>
+{% endblock %}

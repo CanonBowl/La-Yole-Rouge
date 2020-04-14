@@ -1,0 +1,19 @@
+{% block body %}
+    <div class="card">
+        <div class="row">
+            {{ user.prenom }} {{ user.nom }}
+        </div>
+        <div class="row">
+            {{ user.email }}
+        </div>
+        <div class="row">
+            {{ user.dateNaissance|date("m/d/Y") }}
+        </div>
+        <div class="row">
+            Nombre de réservations : {{ user.reservations.count }}
+        </div>
+        <div class="row">
+            Points de fidélité : {{ user.pointFidelite }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% block body %}
+    <div class="row valign-wrapper">
+        <div class="col l8 s8">
+            <div id="EspaceLogin" class="card">
+                <form id="form_login" method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <div class="mb-3">
+                            Vous êtes enregistré en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">se déconnecter</a>
+                        </div>
+                    {% endif %}
+
+                    <h2 class="h3 mb-3 font-weight-normal">Se connecter</h2>
+                    <div class="input-field">
+                        <i class="material-icons prefix">email</i>
+                        <input type="text" value="{{ last_username }}" name="email" id="inputUsername" class="form-control" required autofocus>
+                        <label for="inputUsername">Adresse email</label>
+                    </div>
+
+                    <div class="input-field">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <label for="inputPassword">Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" required>
+                    </div>
+
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+
+                    {#
+                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                        See https://symfony.com/doc/current/security/remember_me.html
+
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Remember me
+                            </label>
+                        </div>
+                    #}
+
+                    <button id="sendLogin" class="btn btn-lg btn-primary" type="submit">
+                        Sign in
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col l4 s4 center valign-wrapper" style="height: 90vh;">
+            Pas encore inscrit ?<br>
+            <div class="btn center" id="Enregistrement">Nous rejoindre</div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#sendLogin').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/app_login",
+                    data: $('#form_login').serialize(),
+                    method: "POST",
+                    success: function (data) {
+                        console.log(data);
+                        location.reload(true);
+
+                    }
+                })
+            });
+
+            $('#Enregistrement').click(function() {
+                $("#EspaceLogin").fadeOut(100).load("Enregistrement", function () {
+                    $('#EspaceLogin').fadeIn(100);
+                });
+            });
+        });
+    </script>
+{% endblock %}
