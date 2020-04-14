@@ -7,7 +7,7 @@ Il me servira de support lors d'une épreuve d'intervention.
 ### Prérequis
 PHP v7.2.5 ou plus
 ```
-https://www.php.net/downloads
+[PHP](https://www.php.net/downloads)
 ```
 Composer
 ```
